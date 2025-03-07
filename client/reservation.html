@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation System</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #111; /* Dark background */
+            color: #f4f4f4; /* Light text for contrast */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #222; /* Darker background for the form container */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 500px;
+            border: 2px solid #d4af37; /* Gold border */
+        }
+
+        h1 {
+            text-align: center;
+            color: #d4af37; /* Gold color for the title */
+            margin-bottom: 20px;
+        }
+
+        form div {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #d4af37; /* Golden labels */
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #d4af37; /* Gold border on inputs */
+            background-color: #333; /* Dark background for inputs */
+            color: #f4f4f4; /* Light text inside inputs */
+        }
+
+        button {
+            background-color: #d4af37; /* Gold color for the button */
+            color: black;
+            border: none;
+            padding: 10px 15px;
+            width: 100%;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #b8860b; /* Darker gold on hover */
+        }
+
+        #reservations-container {
+            margin-top: 30px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #333; /* Dark background for list items */
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #d4af37; /* Gold border for list items */
+        }
+
+        li p {
+            margin: 5px 0;
+            color: #f4f4f4; /* Light text in the list items */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Table Reservation</h1>
+        
+        <!-- Reservation Form -->
+        <form id="reservation-form">
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" required>
+            </div>
+            <div>
+                <label for="date">Date:</label>
+                <input type="date" id="date" required>
+            </div>
+            <div>
+                <label for="time">Time:</label>
+                <input type="time" id="time" required>
+            </div>
+            <div>
+                <label for="partySize">Party Size:</label>
+                <input type="number" id="partySize" required>
+            </div>
+            <button type="submit">Reserve Table</button>
+        </form>
+        
+        <div id="reservations-container">
+            <h2>Reservations</h2>
+            <ul id="reservation-list">
+                <!-- Reservations will appear here -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Get references to the DOM elements
+        const reservationForm = document.getElementById('reservation-form');
+        const reservationList = document.getElementById('reservation-list');
+
+        // Function to load reservations from localStorage
+        function loadReservations() {
+            const storedReservations = localStorage.getItem('reservations');
+            if (storedReservations) {
+                return JSON.parse(storedReservations);
+            }
+            return [];
+        }
+
+        // Function to save reservations to localStorage
+        function saveReservations(reservations) {
+            localStorage.setItem('reservations', JSON.stringify(reservations));
+        }
+
+        // Initialize reservations array from localStorage
+        let reservations = loadReservations();
+
+        // Function to handle form submission
+        function handleFormSubmit(event) {
+            event.preventDefault(); // Prevent the form from reloading the page
+
+            // Get values from the form inputs
+            const name = document.getElementById('name').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const partySize = document.getElementById('partySize').value;
+
+            // Create a new reservation object
+            const newReservation = { name, date, time, partySize };
+
+            // Add the new reservation to the reservations array
+            reservations.push(newReservation);
+
+            // Save the updated reservations to localStorage
+            saveReservations(reservations);
+
+            // Clear the form inputs after submission
+            reservationForm.reset();
+
+            // Update the reservation list
+            updateReservationList();
+        }
+
+        // Function to update the reservation list
+        function updateReservationList() {
+            // Clear the existing reservation list
+            reservationList.innerHTML = '';
+
+            // Check if there are any reservations to display
+            if (reservations.length > 0) {
+                // Loop through each reservation and create a list item
+                reservations.forEach((reservation, index) => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `
+                        <p><strong>${reservation.name}</strong></p>
+                        <p>Date: ${reservation.date}</p>
+                        <p>Time: ${reservation.time}</p>
+                        <p>Party Size: ${reservation.partySize}</p>
+                    `;
+                    reservationList.appendChild(listItem);
+                });
+            } else {
+                // If no reservations, display a message
+                reservationList.innerHTML = '<p>No reservations yet!</p>';
+            }
+        }
+
+        // Attach the submit event handler to the form
+        reservationForm.addEventListener('submit', handleFormSubmit);
+
+        // Initial update of the reservation list
+        updateReservationList();
+    </script>
+</body>
+</html>

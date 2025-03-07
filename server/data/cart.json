@@ -1,0 +1,12 @@
+[
+  {
+    "userId": 2,
+    "resourceId": 1,
+    "quantity": 3
+  },
+  {
+    "userId": 3,
+    "resourceId": 2,
+    "quantity": 6
+  }
+]

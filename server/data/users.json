@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "firstName": "aadi",
+    "lastName": "dayal",
+    "email": "aadigarg4115@gmail.com",
+    "phone": "2342243",
+    "address": "asdaf",
+    "password": "$2b$10$ArzdXl9P97doWP2.X/WZG.1B4HBYWG3cvBXamWNLJoVSkWcAW.L.K"
+  },
+  {
+    "id": 2,
+    "firstName": "aadi",
+    "lastName": "dayal",
+    "email": "ojasvita0756.be23@chitkara.edu.in",
+    "phone": "2342243",
+    "address": "asdaf",
+    "password": "$2b$10$9XFpW/dzYYuQuo0ki8hvM.Vaa7SlBvtuBIIg/8wjRX0dp5MztlvvW"
+  },
+  {
+    "id": 3,
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john@example.com",
+    "phone": "1234567890",
+    "address": "123 Main St",
+    "password": "$2b$10$yTPvlcgXghgZYfN0UzZireNTarayQQ4zHfzuVCEhMK7Xao7GzDoyq"
+  },
+  {
+    "id": 4,
+    "firstName": "garju",
+    "lastName": "daami",
+    "email": "garju@6",
+    "phone": "6666",
+    "address": "chakka colony",
+    "password": "$2b$10$j/I5T0tBYDaEd8nEBaKRru65ExrKA3RXbdLu4hPM3vDnIlaypSDuO"
+  }
+]

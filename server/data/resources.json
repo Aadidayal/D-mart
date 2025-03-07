@@ -1,0 +1,53 @@
+[
+  {
+    "id": 1,
+    "name": "Chocolate Brownie",
+    "price": 299.99,
+    "description": " dessert",
+    "image": "https://example.com/brownie.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Vegetable Tacos",
+    "price": 232
+  },
+  {
+    "id": 4,
+    "name": "Vegetable Samosas",
+    "price": 414.17
+  },
+  {
+    "id": 5,
+    "name": "Margherita Pizza",
+    "price": 1078.17
+  },
+  {
+    "id": 6,
+    "name": "Chocolate Lava Cake",
+    "price": 581.17
+  },
+  {
+    "id": 7,
+    "name": "Vegetable Biryani",
+    "price": 496.17
+  },
+  {
+    "id": 8,
+    "name": "Vegetable Ramen",
+    "price": 829.17
+  },
+  {
+    "id": 8,
+    "name": "Chocolate Brownie",
+    "description": "Delicious dessert",
+    "price": 299.99,
+    "image": "https://example.com/brownie.jpg"
+  },
+  {
+    "id": 9,
+    "name": "Chocolate Brownie",
+    "description": "No description available",
+    "price": 299.99,
+    "image": "https://example.com/brownie.jpg"
+  }
+]

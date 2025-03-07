@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup/Login Form</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-image: url('https://thumbs.dreamstime.com/b/elegant-beige-floral-background-delicate-abstract-flowers-leaves-perfect-invitations-cards-wallpaper-designs-327017580.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #f9c74f;
+            font-family: 'Arial', sans-serif;
+            height: 180vh;
+            
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .signup-container {
+            background-color: rgba(28, 28, 28, 0.9); /* Darker background with opacity */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 30px rgba(255, 215, 0, 0.4);
+            width: 120%; /* Set width to 90% of the parent container */
+            max-width: 500px; /* Set a smaller max width */
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        fieldset {
+            border: 2px solid #f9c74f;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        legend {
+            color: #f9c74f;
+            font-weight: bold;
+            font-size: 1.3em;
+            text-align: center;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #f9c74f;
+        }
+
+        .form-control {
+            background-color: #222;
+            color: #f9c74f;
+            border: 1px solid #f9c74f;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #f9c74f;
+            box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+        }
+
+        .btn-custom {
+            background-color: #f9c74f;
+            color: black;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: #f4a261;
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #333;
+            color: #f9c74f;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn-secondary:hover {
+            background-color: #444;
+            color: white;
+        }
+
+        .form-group a {
+            color: #f9c74f;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .form-group a:hover {
+            color: #f4a261;
+        }
+
+        .logout-btn {
+            background-color: #f9c74f;
+            color: black;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .logout-btn:hover {
+            background-color: #b8860b;
+            color: white;
+        }
+
+        /* Animations for smooth form transitions */
+        .form-group {
+            opacity: 0;
+            animation: fadeIn 0.6s ease-in-out forwards;
+        }
+
+        .form-group:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+        .form-group:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+        .form-group:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+        .form-group:nth-child(4) {
+            animation-delay: 0.8s;
+        }
+        .form-group:nth-child(5) {
+            animation-delay: 1s;
+        }
+        .form-group:nth-child(6) {
+            animation-delay: 1.2s;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 signup-container">
+                <form name="signupform" id="signupform" onsubmit="return handleSignup(event)">
+                    <fieldset>
+                        <legend>Signup Form</legend>
+                        <div class="form-group">
+                            <label for="fname">First Name</label>
+                            <input type="text" class="form-control" id="fname" name="fname" placeholder="required" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lname">Last Name</label>
+                            <input type="text" class="form-control" id="lname" name="lname">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="required" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="required" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" class="form-control" id="address" name="address" placeholder="required" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" class="form-control" id="dob" name="dob" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select class="form-control" id="gender" name="gender" required>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <input type="text" class="form-control" id="country" name="country" placeholder="required" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="required" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="required" required>
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-custom">Sign Up</button>
+                            <button type="reset" class="btn btn-secondary">Reset</button>
+                        </div>
+                        <div class="form-group text-center">
+                            <a href="#" onclick="showLoginForm()">Already have an account? Login</a>
+                        </div>
+                    </fieldset>
+                </form>
+
+                <form name="loginform" id="loginform" style="display:none;" onsubmit="return handleLogin(event)">
+                    <fieldset>
+                        <legend>Login Form</legend>
+                        <div class="form-group">
+                            <label for="loginEmail">Email</label>
+                            <input type="email" class="form-control" id="loginEmail" name="loginEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" class="form-control" id="loginPassword" name="loginPassword" required>
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-custom">Login</button>
+                            <button type="reset" class="btn btn-secondary">Reset</button>
+                        </div>
+                        <div class="form-group text-center">
+                            <a href="#" onclick="showSignupForm()">Don't have an account? Signup</a>
+                        </div>
+                    </fieldset>
+                </form>
+
+                <!-- Logout Button (Initially hidden) -->
+                <button id="logoutBtn" class="btn logout-btn" style="display:none;" onclick="handleLogout()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       function handleSignup(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const firstName = document.getElementById('fname').value;
+            const lastName = document.getElementById('lname').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const dob = document.getElementById('dob').value;
+            const gender = document.getElementById('gender').value;
+            const country = document.getElementById('country').value;
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+
+            const userData = JSON.parse(localStorage.getItem('userData')) || { customers: [] };
+            const existingUser = userData.customers.find(user => user.username === username);
+
+            if (existingUser) {
+                alert('Username already exists!');
+                return;
+            }
+
+            const newUser = { username, password, firstName, lastName, phone, address, dob, gender, country };
+            userData.customers.push(newUser);
+            localStorage.setItem('userData', JSON.stringify(userData));
+
+            alert('Signup successful!');
+            showLoginForm(); // Switch to login form after successful signup
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            const userData = JSON.parse(localStorage.getItem('userData')) || { customers: [] };
+            const existingUser = userData.customers.find(user => user.username === username);
+
+            if (!existingUser || existingUser.password !== password) {
+                alert('Wrong username or password!');
+                return;
+            }
+
+            alert('Login successful!');
+            document.getElementById('logoutBtn').style.display = 'block'; // Show logout button
+            window.location.href = 'storedData.html'; // Redirect to the page showing stored data
+        }
+
+        function showLoginForm() {
+            document.getElementById('signupform').style.display = 'none';
+            document.getElementById('loginform').style.display = 'block';
+        }
+
+        function showSignupForm() {
+            document.getElementById('loginform').style.display = 'none';
+            document.getElementById('signupform').style.display = 'block';
+        }
+
+        function handleLogout() {
+            // Clear the user data from localStorage
+            localStorage.removeItem('userData');
+
+            // Hide the logout button and redirect to login form
+            document.getElementById('logoutBtn').style.display = 'none';
+            showLoginForm();
+            alert('You have been logged out!');
+        }
+    </script>
+</body>
+</html>

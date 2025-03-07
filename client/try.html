@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup/Login Form</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000; 
+            color: #f9c74f;
+        }
+        .signup-container {
+            margin-top: 20px;
+            background-color: #1c1c1c;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+        fieldset {
+            border: 2px solid #f9c74f; 
+            padding: 15px;
+            border-radius: 10px;
+        }
+        legend {
+            color: #f9c74f;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .form-group label {
+            font-weight: bold;
+            color: #f9c74f;
+        }
+        .form-control {
+            background-color: #333;
+            color: #f9c74f;
+            border: 1px solid #f9c74f;
+        }
+        .btn-custom {
+            background-color: #f9c74f;
+            color: black;
+        }
+        .btn-custom:hover {
+            background-color: #b8860b;
+            color: white;
+        }
+        .btn-secondary {
+            background-color: #333;
+            color: #f9c74f;
+        }
+        .btn-secondary:hover {
+            background-color: #444;
+            color: white;
+        }
+        .logout-btn {
+            background-color: #f9c74f;
+            color: black;
+            margin-top: 20px;
+        }
+        .logout-btn:hover {
+            background-color: #b8860b;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 signup-container">
+                
+                <!-- Signup Form -->
+                <form id="signupform" onsubmit="return handleSignup(event)">
+                    <fieldset>
+                        <legend>Signup Form</legend>
+                        <div class="form-group">
+                            <label for="fname">First Name</label>
+                            <input type="text" class="form-control" id="fname" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lname">Last Name</label>
+                            <input type="text" class="form-control" id="lname">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" class="form-control" id="address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" required>
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-custom">Sign Up</button>
+                            <button type="reset" class="btn btn-secondary">Reset</button>
+                        </div>
+                        <div class="form-group text-center">
+                            <a href="#" onclick="showLoginForm()">Already have an account? Login</a>
+                        </div>
+                    </fieldset>
+                </form>
+
+                <!-- Login Form -->
+                <form id="loginform" style="display:none;" onsubmit="return handleLogin(event)">
+                    <fieldset>
+                        <legend>Login Form</legend>
+                        <div class="form-group">
+                            <label for="loginEmail">Email</label>
+                            <input type="email" class="form-control" id="loginEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" class="form-control" id="loginPassword" required>
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-custom">Login</button>
+                            <button type="reset" class="btn btn-secondary">Reset</button>
+                        </div>
+                        <div class="form-group text-center">
+                            <a href="#" onclick="showSignupForm()">Don't have an account? Signup</a>
+                        </div>
+                    </fieldset>
+                </form>
+
+                <!-- Logout Button -->
+                <button id="logoutBtn" class="btn logout-btn" style="display:none;" onclick="handleLogout()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ✅ Handle Signup
+        function handleSignup(event) {
+            event.preventDefault();
+    
+            const user = {
+                firstName: document.getElementById('fname').value,
+                lastName: document.getElementById('lname').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                address: document.getElementById('address').value,
+                password: document.getElementById('password').value
+            };
+    
+            fetch("http://localhost:5000/api/users", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(user)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === "Signup successful") {
+                    alert("Signup successful! Please log in.");
+                    showLoginForm(); // Switch to login form
+                } else {
+                    alert(data.message || "Signup failed.");
+                }
+            })
+            .catch(error => console.error("Signup error:", error));
+        }
+    
+        // ✅ Handle Login
+        function handleLogin(event) {
+            event.preventDefault();
+        
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+    
+            fetch("http://localhost:5000/api/users/login", { // ✅ Correct endpoint
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === "Login successful") {
+                    localStorage.setItem("user", JSON.stringify(data.user));
+                    alert("Login successful!");
+                    window.location.href = "final_HOMEpage.html"; // Redirect to main page
+                } else {
+                    alert("Invalid credentials. Please try again.");
+                }
+            })
+            .catch(error => console.error("Error during login:", error));
+        }
+    
+        // ✅ Handle Logout
+        function handleLogout() {
+            localStorage.removeItem("user");
+            alert("Logged out successfully!");
+            window.location.href = "try.html"; // Redirect to login page
+        }
+    
+        // ✅ Show Login Form
+        function showLoginForm() {
+            document.getElementById('signupform').style.display = 'none';
+            document.getElementById('loginform').style.display = 'block';
+        }
+    
+        // ✅ Show Signup Form
+        function showSignupForm() {
+            document.getElementById('loginform').style.display = 'none';
+            document.getElementById('signupform').style.display = 'block';
+        }
+    
+        // ✅ Auto Redirect Logged-in Users to Home Page
+        document.addEventListener("DOMContentLoaded", () => {
+            if (localStorage.getItem("user")) {
+                window.location.href = "final_HOMEpage.html";
+            }
+        });
+    </script>
+    
+    
+</body>
+</html>

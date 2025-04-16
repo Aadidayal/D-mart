@@ -34,5 +34,14 @@
     "phone": "6666",
     "address": "chakka colony",
     "password": "$2b$10$j/I5T0tBYDaEd8nEBaKRru65ExrKA3RXbdLu4hPM3vDnIlaypSDuO"
+  },
+  {
+    "id": 5,
+    "firstName": "Arushi",
+    "lastName": "kansal",
+    "email": "arushikakansal@gmail.com",
+    "phone": "7489357897",
+    "address": "Green Avenue",
+    "password": "$2b$10$ceqdEL2j2DauJ.dLL5DJ7eQ9wuaoqsOjrusBvaSgcJXaOAil3IeeC"
   }
 ]

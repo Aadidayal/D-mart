@@ -13,6 +13,7 @@ app.use(express.json()); // Parses JSON body
 const resourceRoutes = require("./routes/resourceRoutes");
 const userRoutes = require("./routes/userRoutes");
 const relationshipRoutes = require("./routes/relationshipRoutes");
+const sellerRoutes = require('./routes/sellerRoutes');
 
 // ✅ Root API Test
 app.get("/", (req, res) => {
@@ -24,11 +25,13 @@ app.use("/api/resources", resourceRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/relationships", relationshipRoutes);
 app.use("/api/cart", relationshipRoutes); // Ensures cart-related routes work
+app.use("/api/sellers", sellerRoutes);
 
 // ✅ Handle Undefined Routes
 app.use((req, res) => {
     res.status(404).json({ message: "Route not found" });
 });
+// Add this to your server.js after other routes
 
 // ✅ Start Server
 app.listen(PORT, () => {

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Seller Product Upload</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #000; /* Black background */
+      color: #FFD54F; /* Mango yellow text color */
+      padding: 20px;
+    }
+    .form-box {
+      max-width: 600px;
+      margin: auto;
+      background: #1a1a1a; /* Darker background for the form */
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #FFD54F; /* Mango yellow color for the heading */
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0 20px;
+      border: 1px solid #FFD54F; /* Mango yellow border */
+      border-radius: 6px;
+      background: #333; /* Dark background for inputs */
+      color: #FFD54F; /* Mango yellow text color for inputs */
+    }
+    button {
+      padding: 12px 20px;
+      background: #FFD54F; /* Mango yellow background for button */
+      color: black; /* Black text color for button */
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background: #FFC107; /* Lighter mango yellow on hover */
+    }
+    label {
+      color: #FFD54F; /* Mango yellow color for labels */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-box">
+    <h2>Add New Product</h2>
+    <form id="sellerForm" action="/api/submit" method="POST" enctype="multipart/form-data">
+      <label>Product Name</label>
+      <input type="text" name="productName" placeholder="e.g. Red T-Shirt" required />
+
+      <label>Product Description</label>
+      <textarea name="productDescription" rows="4" placeholder="Write product details..." required></textarea>
+
+      <label>Product Image</label>
+      <input type="file" name="productImage" accept="image/*" required />
+
+      <label>Category</label>
+      <select name="category" required>
+        <option>Clothing</option>
+        <option>Electronics</option>
+        <option>Groceries</option>
+        <option>Home Appliances</option>
+        <option>Other</option>
+      </select>
+
+      <label>Price (₹)</label>
+      <input type="number" name="price" placeholder="e.g. 499" required />
+
+      <label>Quantity</label>
+      <input type="number" name="quantity" placeholder="e.g. 10" required />
+
+      <label>Shipping Info</label>
+      <textarea name="shippingInfo" rows="2" placeholder="Shipping details, delivery time, etc." required></textarea>
+
+      <label>Discount (%)</label>
+      <input type="number" name="discount" placeholder="e.g. 10 (optional)" />
+
+      <button type="submit">Upload Product</button>
+    </form>
+    <script>
+      document.getElementById('sellerForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const formData = new FormData(this);
+        
+        fetch('http://localhost:5000/api/sellers', {
+          method: 'POST',
+          body: formData  // This will include the file upload
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert('Product uploaded successfully!');
+            this.reset();
+          } else {
+            alert('Failed to upload product: ' + data.message);
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('An error occurred while uploading the product');
+        });
+      });
+    </script>
+  </div>
+
+</body>
+</html>

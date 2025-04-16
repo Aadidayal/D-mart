@@ -8,5 +8,15 @@
     "userId": 3,
     "resourceId": 2,
     "quantity": 6
+  },
+  {
+    "userId": 5,
+    "resourceId": "Vegetable Fried Rice",
+    "quantity": 2
+  },
+  {
+    "userId": 5,
+    "resourceId": "Vegetable Kung Pao",
+    "quantity": 1
   }
 ]

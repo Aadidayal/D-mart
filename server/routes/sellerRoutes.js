@@ -111,22 +111,39 @@ router.get('/:id', (req, res) => {
 });
 
 // POST new product
+// POST new product with sequential ID
 router.post('/', upload.single('productImage'), (req, res) => {
   try {
     const formData = req.body;
     const imageFile = req.file;
-    
-    const productId = Date.now().toString();
+
+    // Path to lastId.txt
+    const idFilePath = path.join(storeDir, 'lastId.txt');
+
+    // Step 1: Read and increment last ID
+    let lastId = 0;
+    if (fs.existsSync(idFilePath)) {
+      const content = fs.readFileSync(idFilePath, 'utf-8').trim();
+      lastId = parseInt(content) || 0;
+    }
+
+    const newProductId = lastId + 1;
+
+    // Step 2: Save new ID back to lastId.txt
+    fs.writeFileSync(idFilePath, newProductId.toString());
+
+    // Step 3: Prepare product data
     const productData = {
-      id: productId,
+      id: newProductId.toString(),
       ...formData,
-      imageUrl: imageFile ? `/store/${imageFile.filename}` : null,
+      imageUrl: imageFile ? `/store/${newProductId}-${imageFile.originalname}` : null,
       createdAt: new Date().toISOString()
     };
-    
-    const productFilePath = path.join(storeDir, `product-${productId}.json`);
+
+    // Step 4: Save product JSON to file
+    const productFilePath = path.join(storeDir, `product-${newProductId}.json`);
     fs.writeFileSync(productFilePath, JSON.stringify(productData, null, 2));
-    
+
     res.status(201).json({ success: true, message: 'Product stored successfully', data: productData });
   } catch (error) {
     console.error('Error storing product:', error);

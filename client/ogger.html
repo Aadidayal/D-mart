@@ -290,33 +290,22 @@ function loadCart() {
 
     
         // ✅ Add or Remove Item from Cart (Fixed API Endpoint)
-        function changeQuantity(resourceId, quantityChange) {
-    const user = JSON.parse(localStorage.getItem("user"));
+        function changeQuantity(itemName, change) {
+    // ✅ Check if user is logged in via localStorage
+    const user = localStorage.getItem("user");
+
     if (!user) {
-        alert("Please login first!");
-        window.location.href = "try.html";
+        alert("Please log in to add items to your cart.");
+        window.location.href = "try.html"; // redirect to login/signup
         return;
     }
 
-    const data = {
-        userId: user.id,
-        resourceId,
-        quantityChange
-    };
-
-    console.log("📤 Sending request to server:", data);
-
-    fetch("http://localhost:5000/api/relationships/cart", { 
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log("✅ Server Response:", data);
-        loadCart(); // Reload cart after updating
-    })
-    .catch(error => console.error("❌ Error updating cart:", error));
+    // ⏬ Proceed only if user is logged in
+    const quantitySpan = document.getElementById(`quantity-${itemName.replace(/\s/g, '')}`);
+    let quantity = parseInt(quantitySpan.innerText) || 0;
+    quantity += change;
+    quantity = Math.max(0, quantity); // no negative quantities
+    quantitySpan.innerText = quantity;
 }
 
 
@@ -350,17 +339,26 @@ function loadCart() {
         }
     
         // ✅ Logout Function
-        function handleLogout() {
-            localStorage.removeItem("user");
-            alert("Logged out successfully!");
-            window.location.href = "try.html"; // Redirect to login
-        }
-    
+        
+function handleLogout() {
+    localStorage.removeItem("user");
+    alert("Logged out successfully.");
+    window.location.href = "try.html";
+}
+
+
         // ✅ Run on Page Load
         document.addEventListener("DOMContentLoaded", () => {
-            checkLoginStatus();
-            loadCart();
-        });
+    const user = localStorage.getItem("user");
+
+    const logoutBtn = document.getElementById("logoutBtn");
+    if (user) {
+        logoutBtn.style.display = "inline-block";
+    } else {
+        logoutBtn.innerText = "Login";
+        logoutBtn.onclick = () => window.location.href = "try.html";
+    }
+});
     
     </script>
     

@@ -14,6 +14,7 @@ const resourceRoutes = require("./routes/resourceRoutes");
 const userRoutes = require("./routes/userRoutes");
 const relationshipRoutes = require("./routes/relationshipRoutes");
 const sellerRoutes = require('./routes/sellerRoutes');
+    
 
 // ✅ Root API Test
 app.get("/", (req, res) => {

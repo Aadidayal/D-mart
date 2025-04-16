@@ -32,6 +32,21 @@ router.get("/", (req, res) => {
     }));
     res.json(usersWithoutPasswords);
 });
+// ✅ Get user by ID (excluding password)
+router.get("/:id", (req, res) => {
+    const userId = parseInt(req.params.id, 10);
+
+    const user = storage.users.find(u => u.id === userId);
+
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
+
+    // Exclude password from the response
+    const { password, ...userWithoutPassword } = user;
+    res.json(userWithoutPassword);
+});
+
 
 // ✅ Signup (Create a new user)
 router.post("/", async (req, res) => {

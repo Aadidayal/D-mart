@@ -7,64 +7,112 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #000; /* Black background */
-      color: #FFD54F; /* Mango yellow text color */
-      padding: 20px;
+      background: #000;
+      color: #FFD54F;
+      margin: 0;
+      padding: 0;
     }
+
+    .header {
+      background-color: #1a1a1a;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #FFD54F;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .logout-btn {
+      background: transparent;
+      border: 1px solid #FFD54F;
+      color: #FFD54F;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .logout-btn:hover {
+      background-color: #FFD54F;
+      color: #000;
+    }
+
     .form-box {
       max-width: 600px;
-      margin: auto;
-      background: #1a1a1a; /* Darker background for the form */
+      margin: 40px auto;
+      background: #1a1a1a;
       padding: 30px;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
     }
+
     h2 {
       text-align: center;
-      color: #FFD54F; /* Mango yellow color for the heading */
+      margin-bottom: 20px;
+      color: #FFD54F;
     }
+
     input, textarea, select {
       width: 100%;
-      padding: 10px;
-      margin: 10px 0 20px;
-      border: 1px solid #FFD54F; /* Mango yellow border */
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #FFD54F;
       border-radius: 6px;
-      background: #333; /* Dark background for inputs */
-      color: #FFD54F; /* Mango yellow text color for inputs */
+      background: #333;
+      color: #FFD54F;
+      font-size: 14px;
     }
-    button {
-      padding: 12px 20px;
-      background: #FFD54F; /* Mango yellow background for button */
-      color: black; /* Black text color for button */
+
+    button[type="submit"] {
+      padding: 14px;
+      background: #FFD54F;
+      color: black;
+      font-weight: bold;
       border: none;
       border-radius: 6px;
       cursor: pointer;
       width: 100%;
+      font-size: 16px;
+      transition: background 0.3s;
     }
-    button:hover {
-      background: #FFC107; /* Lighter mango yellow on hover */
+
+    button[type="submit"]:hover {
+      background: #FFC107;
     }
+
     label {
-      color: #FFD54F; /* Mango yellow color for labels */
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
 
+  <div class="header">
+    <h1>Seller Dashboard</h1>
+    <button class="logout-btn" id="logoutBtn">Logout</button>
+  </div>
+
   <div class="form-box">
     <h2>Add New Product</h2>
-    <form id="sellerForm" action="/api/submit" method="POST" enctype="multipart/form-data">
-      <label>Product Name</label>
-      <input type="text" name="productName" placeholder="e.g. Red T-Shirt" required />
+    <form id="sellerForm" enctype="multipart/form-data">
+      <label for="productName">Product Name</label>
+      <input type="text" id="productName" name="productName" placeholder="e.g. Red T-Shirt" required />
 
-      <label>Product Description</label>
-      <textarea name="productDescription" rows="4" placeholder="Write product details..." required></textarea>
+      <label for="productDescription">Product Description</label>
+      <textarea id="productDescription" name="productDescription" rows="4" placeholder="Write product details..." required></textarea>
 
-      <label>Product Image</label>
-      <input type="file" name="productImage" accept="image/*" required />
+      <label for="productImage">Product Image</label>
+      <input type="file" id="productImage" name="productImage" accept="image/*" required />
 
-      <label>Category</label>
-      <select name="category" required>
+      <label for="category">Category</label>
+      <select id="category" name="category" required>
         <option>Clothing</option>
         <option>Electronics</option>
         <option>Groceries</option>
@@ -72,46 +120,59 @@
         <option>Other</option>
       </select>
 
-      <label>Price (₹)</label>
-      <input type="number" name="price" placeholder="e.g. 499" required />
+      <label for="price">Price (₹)</label>
+      <input type="number" id="price" name="price" placeholder="e.g. 499" required />
 
-      <label>Quantity</label>
-      <input type="number" name="quantity" placeholder="e.g. 10" required />
+      <label for="quantity">Quantity</label>
+      <input type="number" id="quantity" name="quantity" placeholder="e.g. 10" required />
 
-      <label>Shipping Info</label>
-      <textarea name="shippingInfo" rows="2" placeholder="Shipping details, delivery time, etc." required></textarea>
+      <label for="shippingInfo">Shipping Info</label>
+      <textarea id="shippingInfo" name="shippingInfo" rows="2" placeholder="Shipping details, delivery time, etc." required></textarea>
 
-      <label>Discount (%)</label>
-      <input type="number" name="discount" placeholder="e.g. 10 (optional)" />
+      <label for="discount">Discount (%)</label>
+      <input type="number" id="discount" name="discount" placeholder="e.g. 10 (optional)" />
 
       <button type="submit">Upload Product</button>
     </form>
-    <script>
-      document.getElementById('sellerForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        
-        const formData = new FormData(this);
-        
-        fetch('http://localhost:5000/api/sellers', {
-          method: 'POST',
-          body: formData  // This will include the file upload
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            alert('Product uploaded successfully!');
-            this.reset();
-          } else {
-            alert('Failed to upload product: ' + data.message);
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          alert('An error occurred while uploading the product');
-        });
-      });
-    </script>
   </div>
+
+  <script>
+    // Handle product form submit
+    document.getElementById('sellerForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      const formData = new FormData(this);
+      
+      fetch('http://localhost:5000/api/sellers', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert('Product uploaded successfully!');
+          this.reset();
+        } else {
+          alert('Failed to upload product: ' + data.message);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while uploading the product');
+      });
+    });
+
+    // Handle logout
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      fetch('http://localhost:5000/api/logout', {
+        method: 'POST',
+        credentials: 'include'
+      })
+      .finally(() => {
+        window.location.href = 'try2.html'; // Redirect no matter what
+      });
+    });
+  </script>
 
 </body>
 </html>

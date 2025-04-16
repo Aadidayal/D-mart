@@ -43,5 +43,23 @@
     "phone": "7489357897",
     "address": "Green Avenue",
     "password": "$2b$10$ceqdEL2j2DauJ.dLL5DJ7eQ9wuaoqsOjrusBvaSgcJXaOAil3IeeC"
+  },
+  {
+    "id": 6,
+    "firstName": "arya",
+    "lastName": "jkjk",
+    "email": "arya@gmail.com",
+    "phone": "5675788",
+    "address": "diosjfiojo",
+    "password": "$2b$10$7t29rz.WDTtROInddRE/weP3IwxdeRj3G0XqwEe2GaqV2BuIDv2Ti"
+  },
+  {
+    "id": 7,
+    "firstName": "ojasvi",
+    "lastName": "dayal",
+    "email": "ojasvi@chitkara.edu.in",
+    "phone": "23422431",
+    "address": "asdafc",
+    "password": "$2b$10$Yk.xHnrtkPsCpjBJVHPWDuGNwaRH58AU13ydHIaZC63F7reYL0pbS"
   }
 ]

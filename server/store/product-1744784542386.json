@@ -1,0 +1,12 @@
+{
+  "id": "2",
+  "productName": "Red shirt",
+  "productDescription": "M",
+  "category": "Clothing",
+  "price": "10",
+  "quantity": "10",
+  "shippingInfo": "ship",
+  "discount": "10",
+  "imageUrl": null,
+  "createdAt": "2025-04-16T06:22:22.386Z"
+}
